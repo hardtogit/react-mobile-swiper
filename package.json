@@ -1,0 +1,33 @@
+{
+  "name": "react-mobile-swiper",
+  "version": "1.0.1",
+  "description": "a swiper component",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "413401168"
+  },
+  "keywords": [
+    "react",
+    "swiper",
+    "react-swiper",
+    "component",
+    "carousel"
+  ],
+  "files":[
+    "lib"
+  ],
+  "author": "413401168@qq.com",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "react": "^16.2.0"
+  }
+}
