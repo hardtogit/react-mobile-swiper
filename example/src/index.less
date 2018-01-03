@@ -1,0 +1,77 @@
+.body{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+}
+.bottom_fix{
+  position: fixed;
+  left: 0px;
+  bottom: 0px;
+}
+.bottom_body{
+  overflow: auto;
+  margin-bottom: 46px;
+  margin-top: 46px;
+}
+.rotate{
+  transform:rotate(-180deg);
+  left: 10px;
+}
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+.swiper{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+ .swap-right-enter {
+  z-index: 1024;
+  opacity: 0.01;
+  transform: translate3d(-100%, 0, 0);
+  transition: all .3s ease;
+}
+
+ .swap-right-enter.swap-right-enter-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+ .swap-right-leave {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s ease;
+}
+
+ .swap-right-leave.swap-right-leave-active {
+  opacity: 0.01;
+  transform: translate3d(100%, 0, 0);
+}
+ .swap-left-enter {
+  z-index: 1024;
+  opacity: 0.01;
+  transform: translate3d(100%, 0, 0);
+  transition: all .3s ease;
+}
+ .swap-left-enter.swap-left-enter-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+ .swap-left-leave {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s ease-in;
+}
+
+:global .swap-left-leave.swap-left-leave-active {
+  opacity: 0.01;
+  transform: translate3d(-100%, 0, 0);
+}

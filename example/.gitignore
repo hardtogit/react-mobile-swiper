@@ -1,0 +1,12 @@
+# dependencies
+node_modules
+
+# testing
+coverage
+
+# misc
+.DS_Store
+npm-debug.log
+yarn*.log
+# phpstorm
+.idea

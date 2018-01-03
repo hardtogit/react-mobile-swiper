@@ -1,0 +1,22 @@
+//babel配置文件，不需要做修改，因为都配置好了
+{
+  "presets": [
+    "stage-0",
+    "latest",
+    "react",
+    "stage-1",
+    "stage-2",
+    "stage-3"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",//@ 装饰器
+    "transform-async-to-generator",// 函数生成器 yelid
+    "transform-do-expressions", // do{}
+    "syntax-do-expressions" //报错信息
+  ],
+  "env": {
+    "development": {
+      "presets": ["react-hmre"]
+    }
+  }
+}

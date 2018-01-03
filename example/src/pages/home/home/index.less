@@ -1,0 +1,32 @@
+.list{
+  background-color: red;
+  margin-top: 10px;
+  padding: 15px;
+  animation: myfirst 3s;
+  -moz-animation: myfirst 3s;	/* Firefox */
+  -webkit-animation: myfirst 3s;	/* Safari 和 Chrome */
+  -o-animation: myfirst 3s;	/* Opera */
+}
+@keyframes myfirst
+{
+  from {transform: translate3d(-100%, 0, 0);}
+  to {transform: translate3d(0%, 0, 0);}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+  from {background: red;}
+  to {background: yellow;}
+}
+
+@-webkit-keyframes myfirst /* Safari 和 Chrome */
+{
+  from {background: red;}
+  to {background: yellow;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+  from {background: red;}
+  to {background: yellow;}
+}

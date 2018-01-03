@@ -1,0 +1,66 @@
+{
+  "name": "example",
+  "version": "1.0.0",
+  "description": "git clone git@github.com:hdjwq/react.git 下载 如果没有git账号可下载压缩包",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "node build.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hdjwq/react.git"
+  },
+  "author": "hdj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hdjwq/react/issues"
+  },
+  "homepage": "https://github.com/hdjwq/react#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-syntax-do-expressions": "^6.13.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-do-expressions": "^6.22.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-preset-stage-3": "^6.24.1",
+    "cheerio": "^0.22.0",
+    "css-loader": "^0.28.0",
+    "express": "^4.15.2",
+    "file-loader": "^0.11.1",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.28.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.3",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "redux": "^3.6.0",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.4.1",
+    "webpack-dev-middleware": "^1.10.2",
+    "webpack-hot-middleware": "^2.18.0"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "bundle-loader": "^0.5.5",
+    "classnames": "^2.2.5",
+    "immutable": "^3.8.1",
+    "open": "0.0.5",
+    "react-addons-css-transition-group": "^15.5.2",
+    "react-redux": "^5.0.4",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1"
+  }
+}
