@@ -12,6 +12,7 @@
 import React,{Component} from 'react'
 import * as styles from "./style"
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 class Index extends Component{
     static propTypes= {
         index:PropTypes.number,  //初始值
@@ -20,22 +21,26 @@ class Index extends Component{
         loop:PropTypes.bool,  //是否循环播放
         width:PropTypes.number, //0~1,1表示100%
         autoPlay:PropTypes.bool, //是否自动播放
-        interval:PropTypes.number  //轮播间隔秒数
+        interval:PropTypes.number,  //轮播间隔秒数
+        type:PropTypes.string, //轮播类型 default 默认   card 卡片轮播
+        pagination:PropTypes.bool//是否显示分页
     };
     static defaultProps={
         index:0,
         duration:0.5,
         distance:100,
         loop:false,
-        width:0.8,
-        autoPlay:true,
-        interval:3000
+        width:1,
+        autoPlay:false,
+        interval:3000,
+        type:'default',
+        pagination:true,
     };
     constructor(props) {
         super(props);
         this.state = {
             styles:{
-                translateX:this.props.loop&&-(this.props.index+this.props.children.length)*this.clientWidth*0.85+this.clientWidth*0.05||-this.props.index*this.clientWidth*0.85+this.clientWidth*0.05,
+                translateX:this.props.loop&&-(this.props.index+this.props.children.length)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4||-this.props.index*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
                 duration:this.props.duration,
 
             },
@@ -43,7 +48,6 @@ class Index extends Component{
         }
     }
     clientWidth=document.body.clientWidth;
-    clientHeight=document.body.clientHeight;
     startX=0;
     timerOut=0;
     distances=0;
@@ -60,22 +64,22 @@ class Index extends Component{
                 clearInterval(this.timerOut);
                 this.setState({
                     styles: {
-                        translateX: -($this.state.index+$this.slides) * this.clientWidth * 0.85 + this.clientWidth * 0.05,
+                        translateX: -($this.state.index+$this.slides) * this.clientWidth * (this.props.width+(1-this.props.width)/4) + this.clientWidth * (1-this.props.width)/4,
                         duration: 0
                     },
                     index: $this.state.index+$this.slides
                 });
-                this.distances=-($this.state.index+4) * this.clientWidth * 0.85 + this.clientWidth * 0.05;
+                this.distances=-($this.state.index+$this.slides) * this.clientWidth * (this.props.width+(1-this.props.width)/4) + this.clientWidth * (1-this.props.width)/4;
             }else if( this.state.index==this.slides+$this.slides){
                 clearInterval(this.timerOut);
                 this.setState({
                     styles:{
-                        translateX:-($this.state.index-$this.slides)*this.clientWidth*0.85+this.clientWidth*0.05,
+                        translateX:-($this.state.index-$this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
                         duration:0
                     },
                     index:$this.state.index-$this.slides
                 });
-                this.distances=-($this.state.index-$this.slides)*this.clientWidth*0.85+this.clientWidth*0.05;
+                this.distances=-($this.state.index-$this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4;
             }else{
                 this.setState({
                     styles:{
@@ -100,7 +104,7 @@ class Index extends Component{
     };
     handleTouchMove=(e)=>{
         let distance=  e.touches[0].pageX-this.startX;
-        this.scale=Math.abs(0.2*distance/this.clientWidth*0.85);
+        this.scale=Math.abs(0.2*distance/this.clientWidth*(this.props.width+(1-this.props.width)/4));
         if(!this.props.loop){
             if(this.distances+distance>0){
                 if(distance>0){
@@ -108,7 +112,7 @@ class Index extends Component{
                 }else{
                     distance=-Math.sqrt(-distance)
                 }
-            }else if(this.distances+distance<-this.clientWidth*0.85*(this.slides-1-0.05)){
+            }else if(this.distances+distance<-this.clientWidth*(this.props.width+(1-this.props.width)/4)*(this.slides-1-(1-this.props.width)/4)){
                 if(distance>0){
                     distance=Math.sqrt(distance)
                 }else{
@@ -151,7 +155,7 @@ class Index extends Component{
     setMyState=(index)=>{
         this.setState({
             styles:{
-                translateX:-index*this.clientWidth*0.85+this.clientWidth*0.05,
+                translateX:-index*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
                 duration:.5
             },
             index:index
@@ -170,7 +174,7 @@ class Index extends Component{
                     $this.setState(({index})=>({
                         styles:{
                             duration:0,
-                            translateX:-(index+this.slides)*this.clientWidth*0.85+this.clientWidth*0.05,
+                            translateX:-(index+this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
                         },
                         index:index+this.slides,
                     }))
@@ -195,7 +199,7 @@ class Index extends Component{
                     $this.setState(({index})=>({
                         styles:{
                             duration:0,
-                            translateX:-(index-this.slides)*this.clientWidth*0.85+this.clientWidth*0.05,
+                            translateX:-(index-this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
                         },
                         index:index-this.slides
                     }))
@@ -226,15 +230,15 @@ class Index extends Component{
     render(){
         const {children}=this.props;
         const slide_style={
-            width:this.clientWidth*0.8+"px",
-            marginLeft:this.clientWidth*0.05+"px",
-            transform:"scale(1,"+(0.8+this.scale)+")",
+            width:this.clientWidth*this.props.width+"px",
+            marginLeft:this.clientWidth*(1-this.props.width)/4+"px",
+            transform:this.props.type=="card"?"scale(1,"+(this.props.width+this.scale)+")":'',
             transitionDuration:this.state.styles.duration+"s"
         };
         const slide_style_active={
-            width:this.clientWidth*0.8+"px",
-            marginLeft:this.clientWidth*0.05+"px",
-            transform:"scale(1,"+(1-this.scale)+")",
+            width:this.clientWidth*this.props.width+"px",
+            marginLeft:this.clientWidth*(1-this.props.width)/4+"px",
+            transform:this.props.type=="card"?"scale(1,"+(1-this.scale)+")":"",
             transitionDuration:this.state.styles.duration+"s"
         };
         const wrapper_style={
@@ -251,17 +255,29 @@ class Index extends Component{
         }
         for(var k=0;k<j;k++){
             children.map((item,i)=>{
-                sliderDom.push(<div key={10*i+k} className="swiper_slide" style={this.state.index%children.length==i&&slide_style_active||slide_style}>
+                sliderDom.push(<div key={10*i+k} className="swiper-slide" style={this.state.index%children.length==i&&slide_style_active||slide_style}>
                     {item}
                 </div>)
             })
         }
 
         return(
-            <div className="swiper_container" style={styles.swiper_container} ref='swiper' onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
-                <div className="swiper_wrapper" style={wrapper_style} >
+            <div className="swiper-container" style={styles.swiper_container} ref='swiper' onTouchStart={this.handleTouchStart} onTouchMove={this.handleTouchMove} onTouchEnd={this.handleTouchEnd}>
+                <div className="swiper-wrapper" style={wrapper_style} >
                     {sliderDom}
                 </div>
+                {this.props.pagination&&
+                <div className="swiper-pagination" style={styles.swiper_pagination}>
+                    {(()=>{
+                        let list=[]
+                        for(let i=0;i<this.slides;i++){
+                            list.push(<span key={i} className={cn(i==this.state.index%this.slides&&"active","pagination-item" )} style={i==this.state.index%this.slides&&styles.pagination_item_active||styles.pagination_item}></span>)
+                        }
+                        return list
+                    })()}
+                </div>||""
+                }
+
             </div>
         )
 

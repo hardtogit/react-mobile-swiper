@@ -9,8 +9,8 @@ var app=['babel-polyfill',path.join(__dirname,'./src/index.js')];
 var publicPath='/';
 var plugins=[];
 if (dev[0]=='dev'){
-    app.push('webpack-hot-middleware/client?path=http://localhost:8080/__webpack_hmr&reload=true&noInfo=false&quiet=false');
-    publicPath='http://localhost:8080/build'
+    app.push('webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr&reload=true&noInfo=false&quiet=false');
+    publicPath='http://localhost:3000/build'
     plugins.push(new webpack.HotModuleReplacementPlugin())
 }else {
     plugins.push(new HtmlWebpackPlugin({
