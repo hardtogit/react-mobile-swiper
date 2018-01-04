@@ -9,6 +9,7 @@ var app=['babel-polyfill',path.join(__dirname,'./src/index.js')];
 var publicPath='/';
 var plugins=[];
 if (dev[0]=='dev'){
+    console.log('s')
     app.push('webpack-hot-middleware/client?path=http://localhost:3000/__webpack_hmr&reload=true&noInfo=false&quiet=false');
     publicPath='http://localhost:3000/build'
     plugins.push(new webpack.HotModuleReplacementPlugin())
@@ -44,7 +45,7 @@ module.exports={
     output:{
           filename:'js/[name].js',
           path:path.join(__dirname,'./build'),
-        publicPath:'/',
+        publicPath:'./',
         chunkFilename:'js/[name][id].js'
     },
     resolve: {
@@ -69,10 +70,6 @@ module.exports={
               },{
                   test: /\.(png|jpg|gif)$/,
                   use: ['file-loader?limit=10000&name=images/[md5:hash:base64:10].[ext]']
-              },
-              {
-                  test: /\/favicon.ico$/,
-                  use:['file-loader?name=favicon.ico'],
               },
               {
                   test: /\.html$/,
