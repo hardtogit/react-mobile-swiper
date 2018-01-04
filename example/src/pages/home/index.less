@@ -7,5 +7,31 @@ body{
   padding: 0;
 }
 .swiper-contanier{
-  margin-top: 20px;
+  .title{
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    &:first-child{
+      margin-top: 20px;
+    }
+    .arrow{
+      position: relative;
+      float: right;
+      margin-right: 10px;
+    }
+    .arrow:before,.arrow:after{
+      border: 10px solid transparent;
+      border-left: 10px solid #fff;
+      width: 0;
+      height: 0;
+      position: absolute;
+      top: 0;
+      left: 4px;
+      content: ' ';
+    }
+    .arrow:before{
+      border-left-color: #ddd;
+      left: 6px;
+    }
+  }
 }
