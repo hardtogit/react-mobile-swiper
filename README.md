@@ -5,30 +5,30 @@ react-mobile-swiper
 
 ## get start
 
-### step one
+#### step one
 ```bash
 clone or down this project
 ```
-### the second step
+#### the second step
 ```bash
 cd example
 ```
-### the third step
+#### the third step
 ```bash
 npm install
 ```
-### finally
+#### finally
 ```bash
 npm start
 ```
 ## how to use
 
 ### Example with defaults
-## install
+#### install
 ```bash
 npm intsall --save react-mobile-swiper
 ```
-## Creating an example component:
+#### Creating an example component:
 ```javascript
 var React = require('react');
 var Swiper = require('react-mobile-swiper');
