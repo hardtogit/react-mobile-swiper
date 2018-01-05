@@ -2,7 +2,9 @@ react-mobile-swiper
 ================
 
 >a simple react-swiper component 
+##Demo
 
+<img src="https://raw.githubusercontent.com/hardtogit/react-mobile-swiper/master/example/src/assets/img/demo.gif" alt="YaMOrzoWHp.jpg">
 ## get start
 
 #### step one
