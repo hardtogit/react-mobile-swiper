@@ -1,8 +1,8 @@
 react-mobile-swiper
 ================
 
->a simple react-swiper component 
-##Demo
+>a simple react-swiper component <a href="http://114.215.68.43/home">http://114.215.68.43/home</a>
+## Demo
 
 <img src="https://raw.githubusercontent.com/hardtogit/react-mobile-swiper/master/example/src/assets/img/demo.gif" alt="YaMOrzoWHp.jpg">
 ## get start
@@ -32,9 +32,9 @@ npm intsall --save react-mobile-swiper
 ```
 #### Creating an example component:
 ```javascript
-var React = require('react');
-var Swiper = require('react-mobile-swiper');
-var Example = React.createClass({
+import React,{Component} from 'react';
+import Swiper from 'react-mobile-swiper';
+class Example extents Component{
   render: function() {
     return (
       <Swiper>
@@ -42,7 +42,6 @@ var Example = React.createClass({
       </Swiper>
     );
   },
-});
-
-module.exports = Example;
+};
+export default Example;
 
