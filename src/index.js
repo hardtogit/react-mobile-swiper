@@ -276,7 +276,6 @@ class Index extends Component{
 
             </div>
         )
-
     }
 }
 export default  Index
