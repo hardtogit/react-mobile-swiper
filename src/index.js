@@ -28,23 +28,31 @@ class Index extends Component{
     static defaultProps={
         index:0,
         duration:0.5,
-        distance:100,
+        distance:1000,
         loop:false,
         width:1,
         autoPlay:false,
         interval:3000,
-        type:'default',
+        type:'card',
         pagination:true,
     };
     constructor(props) {
         super(props);
-        this.state = {
+        // this.state = {
+        //     styles:{
+        //         translateX:this.props.loop&&-(this.props.index+this.props.children.length)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4||-this.props.index*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
+        //         duration:this.props.duration,
+        //
+        //     },
+        //     index:this.props.loop&&this.props.index+this.props.children.length||this.props.index
+        // }
+        this.state={
             styles:{
-                translateX:this.props.loop&&-(this.props.index+this.props.children.length)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4||-this.props.index*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
                 duration:this.props.duration,
-
             },
+            progress:0,
             index:this.props.loop&&this.props.index+this.props.children.length||this.props.index
+
         }
     }
     clientWidth=document.body.clientWidth;
@@ -64,22 +72,22 @@ class Index extends Component{
                 clearInterval(this.timerOut);
                 this.setState({
                     styles: {
-                        translateX: -($this.state.index+$this.slides) * this.clientWidth * (this.props.width+(1-this.props.width)/4) + this.clientWidth * (1-this.props.width)/4,
+                        // translateX: -($this.state.index+$this.slides) * this.clientWidth * (this.props.width+(1-this.props.width)/4) + this.clientWidth * (1-this.props.width)/4,
                         duration: 0
                     },
                     index: $this.state.index+$this.slides
                 });
-                this.distances=-($this.state.index+$this.slides) * this.clientWidth * (this.props.width+(1-this.props.width)/4) + this.clientWidth * (1-this.props.width)/4;
+                // this.distances=-($this.state.index+$this.slides) * this.clientWidth * (this.props.width+(1-this.props.width)/4) + this.clientWidth * (1-this.props.width)/4;
             }else if( this.state.index==this.slides+$this.slides){
                 clearInterval(this.timerOut);
                 this.setState({
                     styles:{
-                        translateX:-($this.state.index-$this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
+                        // translateX:-($this.state.index-$this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
                         duration:0
                     },
                     index:$this.state.index-$this.slides
                 });
-                this.distances=-($this.state.index-$this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4;
+                // this.distances=-($this.state.index-$this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4;
             }else{
                 this.setState({
                     styles:{
@@ -103,27 +111,8 @@ class Index extends Component{
 
     };
     handleTouchMove=(e)=>{
-        let distance=  e.touches[0].pageX-this.startX;
-        this.scale=Math.abs(0.2*distance/this.clientWidth*(this.props.width+(1-this.props.width)/4));
-        if(!this.props.loop){
-            if(this.distances+distance>0){
-                if(distance>0){
-                    distance=Math.sqrt(distance)
-                }else{
-                    distance=-Math.sqrt(-distance)
-                }
-            }else if(this.distances+distance<-this.clientWidth*(this.props.width+(1-this.props.width)/4)*(this.slides-1-(1-this.props.width)/4)){
-                if(distance>0){
-                    distance=Math.sqrt(distance)
-                }else{
-                    distance=-Math.sqrt(-distance)
-                }
-            }
-        }
         this.setState({
-            styles:{
-                translateX:this.distances+distance
-            }
+            progress:this.startX-e.touches[0].pageX
         });
     };
     handleTouchEnd=(e)=>{
@@ -134,30 +123,22 @@ class Index extends Component{
             },this.props.interval)
         }
         let distance=e.changedTouches[0].pageX-this.startX;
-        this.distances=this.distances+ distance;
-        if(distance>this.props.distance){
-            if(this.state.index<=0&&!this.props.loop){
-                this.back()
-            }else{
+        if(Math.abs(distance)<this.clientWidth/3){
+            this.back()
+        }else{
+            if(distance>0){
                 this.pre()
-            }
-
-        }else if(distance<-this.props.distance){
-            if(this.state.index>=this.slides-1&&!this.props.loop){
-                this.back()
             }else{
                 this.next()
             }
-        }else{
-            this.back()
         }
     };
-    setMyState=(index)=>{
+    setCurrentSlide=(index)=>{
         this.setState({
             styles:{
-                translateX:-index*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
-                duration:.5
+                duration:.5,
             },
+            progress:0,
             index:index
         })
     };
@@ -166,58 +147,43 @@ class Index extends Component{
         this.slides=length;
     }
     pre=()=>{
-        let $this=this;
         if(this.props.loop){
             if(this.state.index==this.slides&&this.props.autoPlay){
-                this.setMyState(this.state.index-1);
+                this.setCurrentSlide(this.state.index-1);
                 this.timerOut=setTimeout(()=>{
-                    $this.setState(({index})=>({
-                        styles:{
-                            duration:0,
-                            translateX:-(index+this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
-                        },
-                        index:index+this.slides,
-                    }))
+                    this.setCurrentSlide(index+this.slides)
                 },this.props.duration*1000)
             }else{
-                this.setMyState(this.state.index-1)
+                this.setCurrentSlide(this.state.index-1)
             }
         }else{
             if(this.state.index<=0){
-                this.setMyState(this.slides-1)
+                this.setCurrentSlide(this.slides-1)
             }else{
-                this.setMyState(this.state.index-1)
+                this.setCurrentSlide(this.state.index-1)
             }
         }
     };
     next=()=>{
-        let $this=this;
         if(this.props.loop){
             if(this.state.index==this.slides*2&&this.props.autoPlay){
-                this.setMyState(this.state.index+1);
+                this.setCurrentSlide(this.state.index+1);
                 this.timerOut=setTimeout(()=>{
-                    $this.setState(({index})=>({
-                        styles:{
-                            duration:0,
-                            translateX:-(index-this.slides)*this.clientWidth*(this.props.width+(1-this.props.width)/4)+this.clientWidth*(1-this.props.width)/4,
-                        },
-                        index:index-this.slides
-                    }))
+                    this.setCurrentSlide(index-this.slides)
                 },this.props.duration*1000)
             }else{
-                this.setMyState(this.state.index+1);
+                this.setCurrentSlide(this.state.index+1);
             }
-
         }else{
             if(this.state.index>=this.slides-1){
-                this.setMyState(0)
+                this.setCurrentSlide(0)
             }else{
-                this.setMyState(this.state.index+1)
+                this.setCurrentSlide(this.state.index+1)
             }
         }
     };
     back=()=>{
-        this.setMyState(this.state.index)
+        this.setCurrentSlide(this.state.index)
 
     };
     componentDidMount(){
@@ -228,25 +194,54 @@ class Index extends Component{
         }
     }
     render(){
+        const {progress}=this.state;
+        console.log(progress)
         const {children}=this.props;
         const slide_style={
             width:this.clientWidth*this.props.width+"px",
+            display:'none',
             marginLeft:this.clientWidth*(1-this.props.width)/4+"px",
-            transform:this.props.type=="card"?"scale(1,"+(this.props.width+this.scale)+")":'',
+            // transform:this.props.type=="card"?"scale(1,"+(this.props.width+this.scale)+")":'',
+            transform: `rotateY(90deg)`,
+            transformOrigin:'center center 187.5px',
             transitionDuration:this.state.styles.duration+"s"
         };
+        const slide_style_pre={
+            width:this.clientWidth*this.props.width+"px",
+            marginLeft:this.clientWidth*(1-this.props.width)/4+"px",
+            // transform:this.props.type=="card"?"scale(1,"+(this.props.width+this.scale)+")":'',
+            transform: `rotateY(${(progress/this.clientWidth)*90-90}deg)`,
+            transformOrigin:'center center 187.5px',
+            transitionDuration:this.state.styles.duration+"s",
+            zIndex:progress>0?2:1
+        }
         const slide_style_active={
             width:this.clientWidth*this.props.width+"px",
             marginLeft:this.clientWidth*(1-this.props.width)/4+"px",
-            transform:this.props.type=="card"?"scale(1,"+(1-this.scale)+")":"",
-            transitionDuration:this.state.styles.duration+"s"
+            // transform:this.props.type=="card"?"scale(1,"+(1-this.scale)+")":"",
+            transform: `rotateY(${(progress/this.clientWidth)*90}deg)`,
+            transformOrigin:'center center 187.5px',
+            transitionDuration:this.state.styles.duration+"s",
+            zIndex:3
         };
+        console.log(this.scale)
+        const slide_style_next={
+            width:this.clientWidth*this.props.width+"px",
+            marginLeft:this.clientWidth*(1-this.props.width)/4+"px",
+            // transform:this.props.type=="card"?"scale(1,"+(this.props.width+this.scale)+")":'',
+            transform: `rotateY(${(progress/this.clientWidth * 90) + 90}deg)`,
+            transformOrigin:'center center 187.5px',
+            transitionDuration:this.state.styles.duration+"s",
+            zIndex:progress>0?1:2
+        }
         const wrapper_style={
             transitionDuration:this.state.styles.duration+"s",
             transform:"translate3d("+this.state.styles.translateX+"px, 0px, 0px)"
         };
         Object.assign(wrapper_style,styles.swiper_wrapper);
+        Object.assign(slide_style_next,styles.swiper_slide);
         Object.assign(slide_style,styles.swiper_slide);
+        Object.assign(slide_style_pre,styles.swiper_slide);
         Object.assign(slide_style_active,styles.swiper_slide);
         let sliderDom=[];
         let j=1;
@@ -255,7 +250,8 @@ class Index extends Component{
         }
         for(var k=0;k<j;k++){
             children.map((item,i)=>{
-                sliderDom.push(<div key={10*i+k} className="swiper-slide" style={this.state.index%children.length==i&&slide_style_active||slide_style}>
+                sliderDom.push(<div key={10*i+k} className="swiper-slide"
+                                    style={this.state.index==((children.length*k)+i)?slide_style_active:this.state.index==((children.length*k)+i-1)?slide_style_pre:this.state.index==((children.length*k)+i+1)?slide_style_next:slide_style}>
                     {item}
                 </div>)
             })

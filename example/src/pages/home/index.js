@@ -5,7 +5,7 @@
  * use:auto...
  */
 import React,{Component} from 'react'
-import Swiper from "react-mobile-swiper"
+import Swiper from "../../../../src/index"
 import img1 from "../../assets/img/201610310548064295.jpg"
 import img2 from "../../assets/img/201711210941258146.jpg"
 import img3 from "../../assets/img/201712250712192630.jpg"
@@ -37,7 +37,7 @@ class Index extends Component{
     render(){
         return(
          <div className="swiper-contanier">
-             <Swiper>
+             <Swiper type='card' loop={true} >
                  <div>
                      <img className="item" src={img1} alt=""/>
                  </div>

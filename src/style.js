@@ -10,7 +10,8 @@ export const swiper_container ={
     overflow: "hidden",
     listStyle: "none",
     padding: "0",
-    zIndex: 1
+    zIndex: 1,
+        height:'200px',
     },
     swiper_wrapper={
     position: "relative",
@@ -22,6 +23,11 @@ export const swiper_container ={
     boxSizing: "content-box"
     },
     swiper_slide ={
+    position:"absolute",
+    left:0,
+    top:0,
+    width:'100%',
+    height:'100%',
     textAlign: 'center',
     fontSize: '18px',
     background: "#fff",
