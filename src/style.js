@@ -5,22 +5,13 @@
  * use:auto...
  */
 export const swiper_container ={
-    margin: "0 auto",
     position: "relative",
+    touchAction: 'none',
     overflow: "hidden",
     listStyle: "none",
     padding: "0",
     zIndex: 1,
-        height:'200px',
-    },
-    swiper_wrapper={
-    position: "relative",
-    width: "100%",
-    height: "100%",
-    zIndex: "1",
-    display: "-webkit-box",
-    transitionProperty: "transform",
-    boxSizing: "content-box"
+    height:'200px',
     },
     swiper_slide ={
     position:"absolute",
@@ -31,8 +22,6 @@ export const swiper_container ={
     textAlign: 'center',
     fontSize: '18px',
     background: "#fff",
-    display: "-webkit-box",
-    display: "flex",
     alignItems: "center"
     },
     img={
@@ -42,7 +31,7 @@ export const swiper_container ={
          position: 'absolute',
          left: '50%',
          bottom: '12px',
-         zIndex: 2,
+         zIndex: 10,
          WebkitTransform: "translate(-50%)",
          MozTransform: 'translate(-50%)',
          transform: "translate(-50%)",
