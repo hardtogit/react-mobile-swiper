@@ -29,5 +29,8 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "react": "^16.2.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2"
   }
 }

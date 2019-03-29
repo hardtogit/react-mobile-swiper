@@ -10,27 +10,16 @@ import createStyle from './createStyle'
 import * as animateTypes from './animateType'
 import * as styles from "./style"
 class Index extends Component{
-    static propTypes= {
-        index:PropTypes.number,  //初始值
-        duration:PropTypes.number, //动画完成周期
-        distance:PropTypes.number,  //触发的距离
-        loop:PropTypes.bool,  //是否循环播放
-        width:PropTypes.number, //0~1,1表示100%
-        autoPlay:PropTypes.bool, //是否自动播放
-        interval:PropTypes.number,  //轮播间隔秒数
-        type:PropTypes.string, //轮播类型 default 默认   card 卡片轮播
-        pagination:PropTypes.bool//是否显示分页
-    };
     static defaultProps={
         index:0,
         duration:0.5,
-        distance:1000,
+        distance:150,
         loop:false,
         width:1,
         autoPlay:false,
         interval:3000,
-        type:animateTypes.CARD,
-        typePro:true,
+        type:animateTypes.DEFAULT,
+        typePro:false,
         pagination:true,
     };
     constructor(props) {
@@ -42,7 +31,6 @@ class Index extends Component{
 
         }
     }
-    clientWidth=document.body.clientWidth;
     startX=0;
     timerOut=0;
     timer=0;
@@ -99,7 +87,7 @@ class Index extends Component{
                 this.next();
             },this.props.interval)
         }
-        if(Math.abs(this.state.progress)<this.clientWidth/3){
+        if(Math.abs(this.state.progress)<this.props.distance){
             this.back()
         }else{
             if(this.state.progress<0){
@@ -114,6 +102,10 @@ class Index extends Component{
             duration:.5,
             progress:0,
             index:index
+        },()=>{
+            if(this.props.onSlideChange&& typeof this.props.onSlideChange ==="function"){
+                this.props.onSlideChange(index%this.slides)
+            }
         })
     };
     pre=()=>{
@@ -121,7 +113,10 @@ class Index extends Component{
             if(this.state.index===this.slides&&this.props.autoPlay){
                 this.setCurrentSlide(this.state.index-1);
                 this.timerOut=setTimeout(()=>{
-                    this.setCurrentSlide(this.state.index+this.slides)
+                    this.setState({
+                        duration:0,
+                        index:this.state.index+this.slides
+                    })
                 },this.props.duration*1000)
             }else{
                 this.setCurrentSlide(this.state.index-1)
@@ -139,7 +134,10 @@ class Index extends Component{
             if(this.state.index==this.slides*2&&this.props.autoPlay){
                 this.setCurrentSlide(this.state.index+1);
                 this.timerOut=setTimeout(()=>{
-                    this.setCurrentSlide(this.state.index-this.slides)
+                    this.setState({
+                        duration:0,
+                        index:this.state.index-this.slides
+                    })
                 },this.props.duration*1000)
             }else{
                 this.setCurrentSlide(this.state.index+1);
@@ -158,14 +156,18 @@ class Index extends Component{
     render(){
         const {progress,duration,index}=this.state;
         const {children,type,typePro}=this.props;
-        const slide_style_pre={...styles.swiper_slide,...createStyle(type,'pre',progress,duration)};
-        const slide_style_active={...styles.swiper_slide,...createStyle(type,'active',progress,duration)};
-        const slide_style_next={...styles.swiper_slide,...createStyle(type,'next',progress,duration)};
+        let createStyleFactory=createStyle;
+        if(this.props.createStyle&&typeof createStyle==="function"){
+            createStyleFactory=this.props.createStyle
+        }
+        const slide_style_pre={...styles.swiper_slide,...createStyleFactory(type,'pre',progress,duration)};
+        const slide_style_active={...styles.swiper_slide,...createStyleFactory(type,'active',progress,duration)};
+        const slide_style_next={...styles.swiper_slide,...createStyleFactory(type,'next',progress,duration)};
         let slide_style_prePro={};
         let slide_style_nextPro={};
         if(typePro){
-             slide_style_prePro={...styles.swiper_slide,...createStyle(type,'prePro',progress,duration)};
-             slide_style_nextPro={...styles.swiper_slide,...createStyle(type,'nextPro',progress,duration)};
+             slide_style_prePro={...styles.swiper_slide,...createStyleFactory(type,'prePro',progress,duration)};
+             slide_style_nextPro={...styles.swiper_slide,...createStyleFactory(type,'nextPro',progress,duration)};
         }
 
         let sliderDom=[];
@@ -232,5 +234,18 @@ class Index extends Component{
             </div>
         )
     }
+}
+Index.PropTypes={
+    index:PropTypes.number,  //初始值
+    duration:PropTypes.number, //动画完成周期
+    distance:PropTypes.number,  //触发的距离
+    loop:PropTypes.bool,  //是否循环播放
+    autoPlay:PropTypes.bool, //是否自动播放
+    interval:PropTypes.number,  //轮播间隔秒数
+    type:PropTypes.string, //轮播类型 默认支持animateType
+    typePro:PropTypes.bool,
+    pagination:PropTypes.bool,//是否显示分页
+    onSlideChange:PropTypes.func, //回调
+    createStyle:PropTypes.func //样式生成器，可自行传入
 }
 export default  Index

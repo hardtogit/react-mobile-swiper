@@ -24,9 +24,6 @@ export const swiper_container ={
     background: "#fff",
     alignItems: "center"
     },
-    img={
-    width: "100%"
-    },
     swiper_pagination={
          position: 'absolute',
          left: '50%',

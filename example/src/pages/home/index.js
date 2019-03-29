@@ -37,7 +37,7 @@ class Index extends Component{
     render(){
         return(
          <div className="swiper-contanier">
-             <Swiper  loop={true} >
+             <Swiper  loop={true} autoPlay>
                  <div style={{height:'100%'}}>
                      <img style={{height:'100%'}} className="item" src={img1} alt=""/>
                  </div>
@@ -48,12 +48,12 @@ class Index extends Component{
                      <img style={{height:'100%'}} className="item" src={img3} alt=""/>
                  </div>
              </Swiper>
-            {/*<div className="title">默认</div>*/}
-            {/*<div className="title" onClick={()=>{this.go(1)}}>不带pagination <span className="arrow"></span> </div>*/}
-            {/*<div className="title" onClick={()=>{this.go(2)}}>循环<span className="arrow"></span> </div>*/}
-            {/*<div className="title" onClick={()=>{this.go(3)}}>自动播放<span className="arrow"></span> </div>*/}
-            {/*<div className="title" onClick={()=>{this.go(4)}}>自定义slider宽度<span className="arrow"></span> </div>*/}
-            {/*<div className="title" onClick={()=>{this.go(5)}}>卡片式轮播<span className="arrow"></span> </div>*/}
+            <div className="title">默认</div>
+            <div className="title" onClick={()=>{this.go(1)}}>不带pagination <span className="arrow"></span> </div>
+            <div className="title" onClick={()=>{this.go(2)}}>循环<span className="arrow"></span> </div>
+            <div className="title" onClick={()=>{this.go(3)}}>自动播放<span className="arrow"></span> </div>
+            <div className="title" onClick={()=>{this.go(4)}}>自定义slider宽度<span className="arrow"></span> </div>
+            <div className="title" onClick={()=>{this.go(5)}}>卡片式轮播<span className="arrow"></span> </div>
         </div>
 
         )

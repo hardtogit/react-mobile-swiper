@@ -121,13 +121,7 @@ export default (animateType,stage,progress,duration)=>{
             }
             break;
         default:
-            return
-
-
-
-
-            // transform: `rotateY(${(progress/this.clientWidth)*90-90}deg)`,
-            //     transformOrigin:'center center 187.5px',
+        break
 
     }
 
