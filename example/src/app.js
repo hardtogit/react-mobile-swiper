@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/5/3.
  */
 import React,{Component} from 'react'
-import {Router, Route, BrowserRouter, Redirect, IndexRedirect ,history,Switch} from 'react-router-dom';
+import {Router, Route, HashRouter, Redirect, IndexRedirect ,history,Switch} from 'react-router-dom';
 import Home from "./pages/home/index"
 import One from "./pages/one/index"
 import Two from "./pages/two/index"
@@ -12,7 +12,7 @@ import Five from "./pages/five/index"
 class Index extends Component{
     render(){
         return(
-            <BrowserRouter history={history}>
+            <HashRouter history={history}>
                 <Switch>
                 <Route path="/home" component={Home}> </Route>
                 <Route  path="/example/one" component={One}/>
@@ -22,7 +22,7 @@ class Index extends Component{
                     <Route  path="/example/five" component={Five}/>
                     <Redirect from="*" to="/home"></Redirect>
                 </Switch>
-            </BrowserRouter>
+            </HashRouter>
         )
     }
 }
