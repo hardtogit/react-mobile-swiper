@@ -1,8 +1,8 @@
-import * as animateTypes from './animateType'
+import * as animateTypess from './animateTypes'
 import {clientWidth} from './utils'
-export default (animateType,stage,progress,duration)=>{
-    switch (animateType){
-        case animateTypes.DEFAULT:
+export default (animateTypes,stage,progress,duration)=>{
+    switch (animateTypes){
+        case animateTypess.DEFAULT:
             switch (stage){
                 case 'pre':
                     return(
@@ -30,7 +30,7 @@ export default (animateType,stage,progress,duration)=>{
                     )
             }
             break;
-        case animateTypes.ROLL:
+        case animateTypess.ROLL:
             switch (stage){
                 case 'pre':
                     return(
@@ -64,7 +64,7 @@ export default (animateType,stage,progress,duration)=>{
                     )
             }
             break;
-        case animateTypes.CARD:
+        case animateTypess.CARD:
             switch (stage){
                 case 'pre':
                     return(

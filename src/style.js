@@ -11,7 +11,7 @@ export const swiper_container ={
     listStyle: "none",
     padding: "0",
     zIndex: 1,
-    height:'200px',
+    // height:'200px',
     },
     swiper_slide ={
     position:"absolute",

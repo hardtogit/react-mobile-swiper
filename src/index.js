@@ -7,11 +7,12 @@ import React,{Component} from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
 import createStyle from './createStyle'
-import * as animateTypes from './animateType'
+import * as animateTypes from './animateTypes'
 import * as styles from "./style"
 class Index extends Component{
     static defaultProps={
         index:0,
+        height:200,
         duration:0.5,
         distance:150,
         loop:false,
@@ -29,12 +30,12 @@ class Index extends Component{
             progress:0,
             index:this.props.loop&&this.props.index+this.props.children.length||this.props.index
 
-        }
+        };
+        this.startX=0;
+        this.timerOut=0;
+        this.timer=0;
+        this.slides=0;
     }
-    startX=0;
-    timerOut=0;
-    timer=0;
-    slides=0;
     componentWillMount(){
         this.slides=this.props.children.length;
     }
@@ -44,6 +45,10 @@ class Index extends Component{
                 this.next();
             },this.props.interval)
         }
+
+    }
+    componentWillUnmount(){
+        clearInterval(this.timer)
     }
     handleTouchStart=(e)=>{
         this.startX=e.touches[0].pageX;
@@ -80,14 +85,14 @@ class Index extends Component{
                 progress:this.startX-e.touches[0].pageX
             });
         }else{
-            if(this.state.index===this.slides){
-                if(this.startX-e.touches[0].pageX>0){
+            if(this.state.index===this.slides-1){
+                if(this.startX-e.touches[0].pageX<0){
                     this.setState({
                         progress:this.startX-e.touches[0].pageX
                     })
                 }
             }else if(this.state.index===0){
-                if(this.startX-e.touches[0].pageX<0){
+                if(this.startX-e.touches[0].pageX>0){
                     this.setState({
                         progress:this.startX-e.touches[0].pageX
                     })
@@ -110,9 +115,22 @@ class Index extends Component{
             this.back()
         }else{
             if(this.state.progress<0){
-                this.pre()
+                if(this.props.loop){
+                    this.pre()
+                }else if(this.state.index===0){
+                    this.back();
+                }else{
+                    this.pre()
+                }
             }else{
-                this.next()
+                if(this.props.loop){
+                    this.next()
+                }else if(this.state.index===this.slides-1){
+                    this.back()
+                }else{
+                    this.next()
+                }
+
             }
         }
     };
@@ -163,7 +181,10 @@ class Index extends Component{
             }
         }else{
             if(this.state.index>=this.slides-1){
-                this.setCurrentSlide(0)
+                this.setState({
+                    duration:0,
+                    index:0
+                })
             }else{
                 this.setCurrentSlide(this.state.index+1)
             }
@@ -174,7 +195,7 @@ class Index extends Component{
     };
     render(){
         const {progress,duration,index}=this.state;
-        const {children,type,typePro}=this.props;
+        const {children,type,typePro,height}=this.props;
         let createStyleFactory=createStyle;
         if(this.props.createStyle&&typeof createStyle==="function"){
             createStyleFactory=this.props.createStyle
@@ -237,7 +258,7 @@ class Index extends Component{
 
         return(
             <div className="swiper-container"
-                 style={styles.swiper_container} ref='swiper'
+                 style={{...styles.swiper_container,height:`${height}px`}} ref='swiper'
                  onTouchStart={(e)=>{e.preventDefault();this.handleTouchStart(e)}}
                  onTouchMove={(e)=>{e.preventDefault();this.handleTouchMove(e)}}
                  onTouchEnd={(e)=>{e.preventDefault();this.handleTouchEnd(e)}}
@@ -263,6 +284,10 @@ class Index extends Component{
 }
 Index.PropTypes={
     index:PropTypes.number,  //初始值
+    height:PropTypes.oneOfType([  //容器的高度
+       PropTypes.number,
+       PropTypes.string
+    ]).isRequired,
     duration:PropTypes.number, //动画完成周期
     distance:PropTypes.number,  //触发的距离
     loop:PropTypes.bool,  //是否循环播放
@@ -273,5 +298,6 @@ Index.PropTypes={
     pagination:PropTypes.bool,//是否显示分页
     onSlideChange:PropTypes.func, //回调
     createStyle:PropTypes.func //样式生成器，可自行传入
-}
+};
+Index.animateTypes=animateTypes;
 export default  Index
