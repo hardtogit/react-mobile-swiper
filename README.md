@@ -14,7 +14,6 @@ cd example
 npm install
 
 npm start
-```
 ## how to use
 
 ### Example with defaults
