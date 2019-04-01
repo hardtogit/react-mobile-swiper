@@ -34,11 +34,13 @@ npm intsall --save react-mobile-swiper
 ```javascript
 import React,{Component} from 'react';
 import Swiper from 'react-mobile-swiper';
+const animateTypes=Swiper.animateTypes;
 class Example extents Component{
   render: function() {
     return (
-      <Swiper>
-       <div></div>
+      <Swiper type={animateTypes.DEFAULT} loop>
+       <div><img src=''/></div>
+       <div><img src=''/><div>
       </Swiper>
     );
   },
