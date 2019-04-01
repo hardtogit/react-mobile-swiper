@@ -46,4 +46,55 @@ class Example extents Component{
   },
 };
 export default Example;
-
+```
+### Config Props:
+```javascript
+Index.PropTypes={
+    index:PropTypes.number,  //初始值
+    height:PropTypes.oneOfType([  //容器的高度
+       PropTypes.number,
+       PropTypes.string
+    ]).isRequired,
+    duration:PropTypes.number, //动画完成周期
+    distance:PropTypes.number,  //触发切换的距离
+    loop:PropTypes.bool,  //是否循环播放
+    autoPlay:PropTypes.bool, //是否自动播放
+    interval:PropTypes.number,  //轮播间隔秒数
+    type:PropTypes.string, //轮播类型 默认支持animateType
+    typePro:PropTypes.bool, //需要同屏显示3个slide的时候设置为true.  例如type设置成 animatetype.CARD时
+    pagination:PropTypes.bool,//是否显示分页
+    onSlideChange:PropTypes.func, //slide切换回调
+    createStyle:PropTypes.func //样式生成器，可自行传入
+};
+//样式生成器是一个纯函数。用于返回上一，当前，下一slide的样式。默认animateTypes.DEFAULT的配置如下：
+export default (animateTypes,stage,progress,duration)=>{//接收参数依次为动画类型，slide状态，滑动距离，动画执行时间
+    switch (animateTypes){
+        case animateTypess.DEFAULT:
+            switch (stage){
+                case 'pre':
+                    return(
+                        {
+                            transform: `translateX(${-(clientWidth+progress)}px)`,
+                            transitionDuration: `${duration}s`
+                        }
+                    );
+                case 'active':
+                    return(
+                        {
+                            transform: `translateX(${-progress}px)`,
+                            transitionDuration: duration+"s"
+                        }
+                    )
+                case 'next':
+                    return(
+                        {
+                            transform: `translateX(${(clientWidth-progress)}px)`,
+                            transitionDuration: duration+"s"
+                        }
+                    )
+                default:
+                break;
+            }
+            break;
+      default:break;  
+      }
