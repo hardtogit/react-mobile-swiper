@@ -6,21 +6,13 @@ react-mobile-swiper
 
 <img src="https://raw.githubusercontent.com/hardtogit/react-mobile-swiper/master/example/src/assets/img/demo.gif" alt="YaMOrzoWHp.jpg">
 ## get start
-
-#### step one
 ```bash
 clone or down this project
-```
-#### the second step
-```bash
+
 cd example
-```
-#### the third step
-```bash
+
 npm install
-```
-#### finally
-```bash
+
 npm start
 ```
 ## how to use
@@ -66,7 +58,8 @@ Index.PropTypes={
     onSlideChange:PropTypes.func, //slide切换回调
     createStyle:PropTypes.func //样式生成器，可自行传入
 };
-//样式生成器是一个纯函数。用于返回上一，当前，下一slide的样式。默认animateTypes.DEFAULT的配置如下：（注：当typePro设置为true时，为了更好的体验， 需返回，上上张，下下张的样式，即stage==='prePro',stage==='nextPro'）
+//样式生成器是一个纯函数。用于返回上一，当前，下一slide的样式。默认animateTypes.DEFAULT的配置如下：（注：当typePro设置为true时，为了更好的体验，<br/>
+需返回，上上张，下下张的样式，即stage==='prePro',stage==='nextPro'）
 export default (animateTypes,stage,progress,duration)=>{//接收参数依次为动画类型，slide状态，滑动距离，动画执行时间
     switch (animateTypes){
         case animateTypess.DEFAULT:
