@@ -45,7 +45,7 @@ module.exports={
     output:{
           filename:'js/[name].js',
           path:path.join(__dirname,'./build'),
-        publicPath:'/',
+        publicPath:'/react-mobile-swiper/example/build/',
         chunkFilename:'js/[name][id].js'
     },
     resolve: {
