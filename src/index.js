@@ -70,16 +70,35 @@ class Index extends Component{
             }
         }else{
             this.setState({
-                styles:{
-                    duration:0
-                }
+                duration:0
             });
         }
     };
     handleTouchMove=(e)=>{
-        this.setState({
-            progress:this.startX-e.touches[0].pageX
-        });
+        if(this.props.loop){
+            this.setState({
+                progress:this.startX-e.touches[0].pageX
+            });
+        }else{
+            if(this.state.index===this.slides){
+                if(this.startX-e.touches[0].pageX>0){
+                    this.setState({
+                        progress:this.startX-e.touches[0].pageX
+                    })
+                }
+            }else if(this.state.index===0){
+                if(this.startX-e.touches[0].pageX<0){
+                    this.setState({
+                        progress:this.startX-e.touches[0].pageX
+                    })
+                }
+            }else{
+                this.setState({
+                    progress:this.startX-e.touches[0].pageX
+                })
+            }
+        }
+
     };
     handleTouchEnd=()=>{
         if(this.props.autoPlay){
@@ -175,39 +194,46 @@ class Index extends Component{
         if(this.props.loop){
             j=3
         }
-        console.log(index)
-        for(var k=0;k<j;k++){
-            children.map((item,i)=>{
-                sliderDom.push(<div key={10*i+k} className="swiper-slide"
-                                    style={(()=>{
-                                        if(index===((children.length*k)+i)){
-                                            return slide_style_active
-                                        }else if(index===((children.length*k)+i-1)){
-                                            return slide_style_next
-                                        }else if(index===((children.length*k)+i-2)){
-                                            if(typePro){
-                                                return slide_style_nextPro
-                                            }else{
+        // console.log(index)
+        if(children.map){
+            for(var k=0;k<j;k++){
+                children.map((item,i)=>{
+                    sliderDom.push(<div key={10*k+i} className="swiper-slide"
+                                        style={(()=>{
+                                            if(index===((children.length*k)+i)){
+                                                return slide_style_active
+                                            }else if(index===((children.length*k)+i-1)){
+                                                return slide_style_next
+                                            }
+                                            else if(index===((children.length*k)+i-2)){
+                                                if(typePro){
+                                                    return slide_style_nextPro
+                                                }else{
+                                                    return {display:'none'}
+                                                }
+                                            }
+                                            else if(index===((children.length*k)+i+1)){
+                                                return slide_style_pre
+                                            }
+                                            else if(index===((children.length*k)+i+2)){
+                                                if(typePro){
+                                                    return slide_style_prePro
+                                                }else{
+                                                    return {display:'none'}
+                                                }
+                                            }
+                                            else{
                                                 return {display:'none'}
                                             }
-                                        }
-                                        else if(index===((children.length*k)+i+1)){
-                                            return slide_style_pre
-                                        }else if(index===((children.length*k)+i+2)){
-                                            if(typePro){
-                                                return slide_style_prePro
-                                            }else{
-                                                return {display:'none'}
-                                            }
-                                        }
-                                        else{
-                                            return {display:'none'}
-                                        }
-                                    })()}>
-                    {item}
-                </div>)
-            })
+                                        })()}>
+                        {item}
+                    </div>)
+                })
+            }
+        }else{
+            sliderDom=<div className="swiper-slide" style={slide_style_active}>{children}</div>
         }
+
 
         return(
             <div className="swiper-container"

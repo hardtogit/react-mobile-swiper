@@ -37,7 +37,7 @@ class Index extends Component{
     render(){
         return(
          <div className="swiper-contanier">
-             <Swiper  loop={true} autoPlay>
+             <Swiper loop={false}>
                  <div style={{height:'100%'}}>
                      <img style={{height:'100%'}} className="item" src={img1} alt=""/>
                  </div>

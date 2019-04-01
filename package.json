@@ -1,6 +1,6 @@
 {
   "name": "react-mobile-swiper",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "a swiper component",
   "main": "index.js",
   "scripts": {
