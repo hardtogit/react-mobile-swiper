@@ -6,14 +6,13 @@ react-mobile-swiper
 
 <img src="https://raw.githubusercontent.com/hardtogit/react-mobile-swiper/master/example/src/assets/img/demo.gif" alt="YaMOrzoWHp.jpg">
 ## get start
+
 ```bash
 clone or down this project
-
 cd example
-
 npm install
-
 npm start
+```
 ## how to use
 
 ### Example with defaults
