@@ -38,7 +38,7 @@ class Index extends Component{
     render(){
         return(
          <div className="swiper-contanier">
-             <Swiper loop={true} type={animateTypes.DEFAULT} duration={3} autoPlay>
+             <Swiper loop={true} type={animateTypes.DEFAULT}  autoPlay>
                  <div >
                      <img className="item" src={img1} alt=""/>
                  </div>
