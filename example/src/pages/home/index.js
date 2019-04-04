@@ -9,7 +9,8 @@ import Swiper from "../../../../src/index"
 import img1 from "../../assets/img/201610310548064295.jpg"
 import img2 from "../../assets/img/201711210941258146.jpg"
 import img3 from "../../assets/img/201712250712192630.jpg"
-require ("./index.less")
+require ("./index.less");
+const animateTypes=Swiper.animateTypes
 class Index extends Component{
     go=(page)=>{
         switch (page){
@@ -37,7 +38,7 @@ class Index extends Component{
     render(){
         return(
          <div className="swiper-contanier">
-             <Swiper loop={false}>
+             <Swiper loop={true} type={animateTypes.DEFAULT} duration={3} autoPlay>
                  <div >
                      <img className="item" src={img1} alt=""/>
                  </div>
@@ -52,6 +53,7 @@ class Index extends Component{
             <div className="title" onClick={()=>{this.go(1)}}>不带pagination <span className="arrow"></span> </div>
             <div className="title" onClick={()=>{this.go(2)}}>循环<span className="arrow"></span> </div>
             <div className="title" onClick={()=>{this.go(3)}}>自动播放<span className="arrow"></span> </div>
+            <div className="title" onClick={()=>{this.go(4)}}>3D全屏翻转<span className="arrow"></span> </div>
             <div className="title" onClick={()=>{this.go(5)}}>卡片式轮播<span className="arrow"></span> </div>
         </div>
 

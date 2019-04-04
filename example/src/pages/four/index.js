@@ -9,12 +9,13 @@ import NavBar from "../../component/navBar"
 import img1 from "../../assets/img/201610310548064295.jpg"
 import img2 from "../../assets/img/201711210941258146.jpg"
 import img3 from "../../assets/img/201712250712192630.jpg"
+const animateTypes=Swiper.animateTypes
 class Index extends Component{
     render(){
         return(
             <div className="eg-conteiner">
-                <NavBar title="自定义slider的宽度" {...this.props}></NavBar>
-                <Swiper autoPlay={true} width={0.8}>
+                <NavBar title="3D翻转" {...this.props}></NavBar>
+                <Swiper autoPlay={true} type={animateTypes.ROLL} loop={true}>
                     <div>
                         <img className="item" src={img1} alt=""/>
                     </div>

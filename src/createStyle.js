@@ -11,16 +11,13 @@ export default (animateTypes,stage,progress,duration)=>{
                             transitionDuration: `${duration}s`
                         }
                     );
-                    break;
                 case 'active':
                     return(
                         {
                             transform: `translateX(${-progress}px)`,
                             transitionDuration: duration+"s"
                         }
-                    )
-
-                    break;
+                    );
                 case 'next':
                     return(
                         {
@@ -41,7 +38,6 @@ export default (animateTypes,stage,progress,duration)=>{
                             zIndex:progress>0?1:3
                         }
                     );
-                    break;
                 case 'active':
                     return(
                         {
@@ -50,9 +46,7 @@ export default (animateTypes,stage,progress,duration)=>{
                             transitionDuration: `${duration}s`,
                             zIndex:2
                         }
-                    )
-
-                    break;
+                    );
                 case 'next':
                     return(
                         {
@@ -76,7 +70,6 @@ export default (animateTypes,stage,progress,duration)=>{
                             zIndex:2
                         }
                     );
-                    break;
                 case 'active':
                     return(
                         {
@@ -86,9 +79,7 @@ export default (animateTypes,stage,progress,duration)=>{
                             transitionDuration: `${duration}s`,
                             zIndex:3
                         }
-                    )
-
-                    break;
+                    );
                 case 'next':
                     return(
                         {
@@ -98,8 +89,7 @@ export default (animateTypes,stage,progress,duration)=>{
                             transitionDuration: duration+"s",
                             zIndex:1
                         }
-                    )
-                break;
+                    );
                 case 'prePro':
                     return({
                         width:'80%',
@@ -107,8 +97,7 @@ export default (animateTypes,stage,progress,duration)=>{
                         transform: `translateX(${-(clientWidth*1.7)-progress}px) scaleY(${(1-Math.abs((progress/(clientWidth*0.85))*0.2))})`,
                         transitionDuration: duration+"s",
                         zIndex:1
-                    })
-                    break
+                    });
                 case 'nextPro':
                     return({
                         width:'80%',
@@ -116,8 +105,7 @@ export default (animateTypes,stage,progress,duration)=>{
                         transform: `translateX(${(clientWidth*1.7-progress)}px) scaleY(${(1-Math.abs((progress/(clientWidth*0.85))*0.2))})`,
                         transitionDuration: duration+"s",
                         zIndex:1
-                    })
-                break
+                    });
             }
             break;
         default:

@@ -136,7 +136,7 @@ class Index extends Component{
     };
     setCurrentSlide=(index)=>{
         this.setState({
-            duration:.5,
+            duration:this.props.duration,
             progress:0,
             index:index
         },()=>{
