@@ -5,7 +5,7 @@ react-mobile-swiper
 ## Demo
 
 <img src="https://raw.githubusercontent.com/hardtogit/react-mobile-swiper/master/example/src/assets/img/demo.gif" alt="YaMOrzoWHp.jpg">
-## get start
+## 开始
 
 ```bash
 clone or down this project
@@ -13,14 +13,13 @@ cd example
 npm install
 npm start
 ```
-## how to use
+## 怎么使用？
 
-### Example with defaults
-#### install
+#### 安装
 ```bash
 npm intsall --save react-mobile-swiper
 ```
-#### Creating an example component:
+#### 示例组件:
 ```javascript
 import React,{Component} from 'react';
 import Swiper from 'react-mobile-swiper';
@@ -37,7 +36,7 @@ class Example extents Component{
 };
 export default Example;
 ```
-### Config Props:
+### 属性配置:
 ```javascript
 Index.PropTypes={
     index:PropTypes.number,  //初始值
