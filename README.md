@@ -1,7 +1,7 @@
 react-mobile-swiper
 ================
 
->a simple react-swiper component <a href="https://hardtogit.github.io/react-mobile-swiper/example/build/index.html">https://hardtogit.github.io/react-mobile-swiper/example/build/index.html</a>
+>演示地址 <a href="https://hardtogit.github.io/react-mobile-swiper/example/build/index.html">https://hardtogit.github.io/react-mobile-swiper/example/build/index.html</a>
 ## Demo
 
 <img src="https://raw.githubusercontent.com/hardtogit/react-mobile-swiper/master/example/src/assets/img/demo.gif" alt="YaMOrzoWHp.jpg">
